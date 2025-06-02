@@ -5,16 +5,20 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
-const DATA_FILE = './income_data.json';
+const DATA_DIR = './data';
+const DATA_FILE = path.join(DATA_DIR, 'income_data.json');
 
 // 中间件
 app.use(cors());
 app.use(express.json());
 app.use(express.static('.'));
 
-// 确保数据文件存在
+// 确保数据目录和文件存在
 async function ensureDataFile() {
     try {
+        // 确保data目录存在
+        await fs.mkdir(DATA_DIR, { recursive: true });
+        // 确保数据文件存在
         await fs.access(DATA_FILE);
     } catch (error) {
         // 文件不存在，创建空数据文件
@@ -40,7 +44,7 @@ app.post('/api/income', async (req, res) => {
         const incomeData = req.body;
         
         // 添加备份功能
-        const backupFile = `./backup_${new Date().toISOString().split('T')[0]}.json`;
+        const backupFile = path.join(DATA_DIR, `backup_${new Date().toISOString().split('T')[0]}.json`);
         try {
             const existingData = await fs.readFile(DATA_FILE, 'utf8');
             await fs.writeFile(backupFile, existingData);
@@ -60,7 +64,7 @@ app.post('/api/income', async (req, res) => {
 // 获取备份列表
 app.get('/api/backups', async (req, res) => {
     try {
-        const files = await fs.readdir('.');
+        const files = await fs.readdir(DATA_DIR);
         const backupFiles = files
             .filter(file => file.startsWith('backup_') && file.endsWith('.json'))
             .map(file => ({
@@ -79,7 +83,7 @@ app.get('/api/backups', async (req, res) => {
 // 恢复备份
 app.post('/api/restore/:filename', async (req, res) => {
     try {
-        const filename = req.params.filename;
+        const filename = path.join(DATA_DIR, req.params.filename);
         const backupData = await fs.readFile(filename, 'utf8');
         await fs.writeFile(DATA_FILE, backupData);
         res.json({ success: true, message: '数据恢复成功' });
