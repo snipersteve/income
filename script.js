@@ -280,18 +280,18 @@ class IncomeCalendar {
             this.incomeData = data ? JSON.parse(data) : {};
             this.serverMode = false;
             
-            // 如果是首次使用，添加示例数据
-            if (Object.keys(this.incomeData).length === 0) {
-                const today = new Date();
-                const year = today.getFullYear();
-                const month = String(today.getMonth() + 1).padStart(2, '0');
+            // // 如果是首次使用，添加示例数据
+            // if (Object.keys(this.incomeData).length === 0) {
+            //     const today = new Date();
+            //     const year = today.getFullYear();
+            //     const month = String(today.getMonth() + 1).padStart(2, '0');
                 
-                this.incomeData = {
-                    [`${year}-${month}-01`]: 100,
-                    [`${year}-${month}-02`]: 50
-                };
-                await this.saveData();
-            }
+            //     this.incomeData = {
+            //         [`${year}-${month}-01`]: 100,
+            //         [`${year}-${month}-02`]: 50
+            //     };
+            //     await this.saveData();
+            // }
         } catch (error) {
             console.error('加载数据失败:', error);
             this.incomeData = {};
