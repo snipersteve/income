@@ -1,0 +1,695 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden; /* 防止横向滚动 */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    gap: 30px;
+    min-height: auto; /* 改为auto，不强制最小高度 */
+    width: 100%; /* 确保容器不超出屏幕 */
+}
+
+/* 日历区域 */
+.calendar-section {
+    flex: 2;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-width: 0; /* 允许弹性收缩 */
+    height: fit-content; /* 自适应内容高度 */
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 20px;
+    flex-wrap: wrap; /* 允许换行 */
+}
+
+.nav-btn {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    transition: all 0.2s;
+    flex-shrink: 0; /* 防止按钮被压缩 */
+}
+
+.nav-btn:hover {
+    background: #e9ecef;
+    color: #333;
+}
+
+.today-btn {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    transition: all 0.2s;
+    flex-shrink: 0; /* 防止按钮被压缩 */
+}
+
+.today-btn:hover {
+    background: #e9ecef;
+    color: #333;
+}
+
+.month-year {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    min-width: 150px;
+    text-align: center;
+    flex-shrink: 0; /* 防止月份标题被压缩 */
+}
+
+.calendar {
+    width: 100%;
+    overflow: hidden; /* 防止内容溢出 */
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: 500;
+    color: #666;
+    padding: 12px 0;
+    font-size: 14px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    font-weight: 500;
+    font-size: 16px;
+    background: white;
+    border: 1px solid #f0f0f0;
+    min-width: 0; /* 允许收缩 */
+}
+
+.day:hover {
+    background: #f8f9fa;
+    transform: translateY(-1px);
+}
+
+.day.other-month {
+    color: #ccc;
+}
+
+.day.today {
+    background: #e3f2fd;
+    color: #1976d2;
+    border-color: #1976d2;
+}
+
+.day.has-income {
+    background: #6366f1;
+    color: white;
+    border-color: #6366f1;
+}
+
+.day.has-income:hover {
+    background: #5856eb;
+}
+
+.income-amount {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* 统计区域 */
+.stats-section {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    min-width: 0; /* 允许弹性收缩 */
+}
+
+.stats-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+}
+
+.stat-item {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.stats-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stats-row .stat-item {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.total-income {
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+    margin-bottom: 20px;
+}
+
+.total-income-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+    margin-bottom: 30px;
+}
+
+.total-income-content {
+    text-align: center;
+    flex: 1;
+}
+
+.total-income-content .stat-label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.total-income-content .stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #059669;
+    word-break: break-all;
+}
+
+.data-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-left: 20px;
+}
+
+.action-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s;
+    min-width: 50px;
+}
+
+.action-btn:nth-child(1) {
+    background: #10b981;
+    color: white;
+}
+
+.action-btn:nth-child(1):hover {
+    background: #059669;
+}
+
+.action-btn:nth-child(2) {
+    background: #3b82f6;
+    color: white;
+}
+
+.action-btn:nth-child(2):hover {
+    background: #2563eb;
+}
+
+/* 弹窗样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.close {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.2s;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 25px;
+}
+
+.modal-body label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.modal-body input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+}
+
+.modal-body input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.modal-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.save-btn {
+    background: #6366f1;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #5856eb;
+}
+
+.delete-btn {
+    background: #ef4444;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #dc2626;
+}
+
+.cancel-btn {
+    background: #f3f4f6;
+    color: #666;
+}
+
+.cancel-btn:hover {
+    background: #e5e7eb;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .container {
+        flex-direction: column;
+        padding: 10px; /* 减少边距 */
+        gap: 10px; /* 减少垂直间距 */
+        width: 100%;
+        min-width: 320px; /* 设置最小宽度 */
+        min-height: auto; /* 自适应高度 */
+    }
+    
+    .calendar-section,
+    .stats-section {
+        padding: 15px; /* 减少内边距 */
+        width: 100%;
+        margin: 0;
+        height: fit-content; /* 自适应内容高度 */
+    }
+    
+    .calendar-header {
+        gap: 10px;
+        justify-content: space-between; /* 平均分布 */
+    }
+    
+    .month-year {
+        font-size: 18px;
+        min-width: auto;
+        flex: 1;
+    }
+    
+    .nav-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+    
+    .today-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    .weekday {
+        font-size: 12px;
+        padding: 8px 0;
+    }
+    
+    .day {
+        font-size: 13px;
+    }
+    
+    .income-amount {
+        font-size: 10px;
+    }
+    
+    .stats-title {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .stats-row {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .total-income {
+        margin-bottom: 20px;
+        padding-top: 15px;
+    }
+    
+    .total-income .stat-value {
+        font-size: 24px;
+    }
+    
+    .total-income-row {
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .total-income-content .stat-value {
+        font-size: 24px;
+    }
+    
+    .data-actions {
+        flex-direction: row;
+        gap: 10px;
+        margin-left: 0;
+        justify-content: center;
+    }
+    
+    .action-btn {
+        flex: 1;
+        max-width: 80px;
+    }
+    
+    .stat-item {
+        margin-bottom: 15px;
+    }
+    
+    .stat-label {
+        font-size: 14px;
+    }
+    
+    .stat-value {
+        font-size: 18px;
+    }
+    
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+        max-width: none;
+    }
+    
+    .modal-header {
+        padding: 15px 20px;
+    }
+    
+    .modal-header h3 {
+        font-size: 16px;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .modal-buttons button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 8px; /* 进一步减少边距 */
+        gap: 8px; /* 进一步减少垂直间距 */
+    }
+    
+    .calendar-section,
+    .stats-section {
+        padding: 12px;
+        border-radius: 8px; /* 减小圆角 */
+    }
+    
+    .calendar-header {
+        gap: 8px;
+    }
+    
+    .month-year {
+        font-size: 16px;
+    }
+    
+    .nav-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+    
+    .today-btn {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+    
+    .day {
+        font-size: 12px;
+    }
+    
+    .income-amount {
+        font-size: 9px;
+    }
+    
+    .weekday {
+        font-size: 11px;
+        padding: 6px 0;
+    }
+    
+    .stats-title {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .stat-value {
+        font-size: 18px;
+    }
+    
+    .stat-label {
+        font-size: 13px;
+    }
+}
+
+/* 超小屏幕优化 */
+@media (max-width: 360px) {
+    .container {
+        padding: 5px;
+        gap: 5px; /* 最小间距 */
+    }
+    
+    .calendar-section,
+    .stats-section {
+        padding: 10px;
+    }
+    
+    .calendar-header {
+        gap: 5px;
+    }
+    
+    .month-year {
+        font-size: 15px;
+    }
+    
+    .nav-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+    }
+    
+    .today-btn {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+    
+    .calendar-days,
+    .weekdays {
+        gap: 4px;
+    }
+    
+    .day {
+        font-size: 11px;
+    }
+    
+    .income-amount {
+        font-size: 8px;
+    }
+}
+
+/* 数据管理区域 */
+.data-management {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.data-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.export-btn {
+    background: #10b981;
+    color: white;
+}
+
+.export-btn:hover {
+    background: #059669;
+}
+
+.import-btn {
+    background: #3b82f6;
+    color: white;
+}
+
+.import-btn:hover {
+    background: #2563eb;
+}
+
+.stat-label {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #6366f1;
+    word-break: break-all; /* 防止长数字溢出 */
+} 
