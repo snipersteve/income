@@ -165,8 +165,12 @@ class IncomeCalendar {
         
         // 检查是否有收入记录
         const income = this.incomeData[dateKey];
-        if (income && income > 0) {
-            dayElement.classList.add('has-income');
+        if (income !== undefined) {
+            if (income > 0) {
+                dayElement.classList.add('has-income');
+            } else if (income < 0) {
+                dayElement.classList.add('has-negative-income');
+            }
             dayElement.innerHTML = `
                 <span>${day}</span>
                 <span class="income-amount">${income}</span>
@@ -206,7 +210,7 @@ class IncomeCalendar {
     saveIncome() {
         const incomeValue = parseFloat(this.incomeInput.value);
         
-        if (isNaN(incomeValue) || incomeValue < 0) {
+        if (isNaN(incomeValue)) {
             alert('请输入有效的收入金额');
             return;
         }

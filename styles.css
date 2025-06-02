@@ -153,8 +153,18 @@ body {
     border-color: #6366f1;
 }
 
+.day.has-negative-income {
+    background: #ef4444;
+    color: white;
+    border-color: #dc2626;
+}
+
 .day.has-income:hover {
     background: #5856eb;
+}
+
+.day.has-negative-income:hover {
+    background: #dc2626;
 }
 
 .income-amount {
