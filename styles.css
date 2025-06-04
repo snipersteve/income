@@ -149,53 +149,53 @@ body {
 
 /* GitHub风格的热力图配色 */
 .day.income-level-1 {
-    background: #9be9a8;
+    background: #e8f5e9;
     color: #033a16;
-    border-color: #9be9a8;
+    border-color: #e8f5e9;
 }
 
 .day.income-level-2 {
-    background: #40c463;
+    background: #c8e6c9;
     color: #033a16;
-    border-color: #40c463;
+    border-color: #c8e6c9;
 }
 
 .day.income-level-3 {
-    background: #30a14e;
-    color: #ffffff;
-    border-color: #30a14e;
+    background: #81c784;
+    color: #033a16;
+    border-color: #81c784;
 }
 
 .day.income-level-4 {
-    background: #216e39;
+    background: #4caf50;
     color: #ffffff;
-    border-color: #216e39;
+    border-color: #4caf50;
 }
 
 .day.income-negative {
-    background: #ef4444;
+    background: #ef5350;
     color: white;
-    border-color: #dc2626;
+    border-color: #ef5350;
 }
 
 .day.income-level-1:hover {
-    background: #8dd897;
+    background: #dcedc8;
 }
 
 .day.income-level-2:hover {
-    background: #39b359;
+    background: #b2dfb2;
 }
 
 .day.income-level-3:hover {
-    background: #2b9146;
+    background: #66bb6a;
 }
 
 .day.income-level-4:hover {
-    background: #1c5e31;
+    background: #43a047;
 }
 
 .day.income-negative:hover {
-    background: #dc2626;
+    background: #e53935;
 }
 
 .income-amount {
