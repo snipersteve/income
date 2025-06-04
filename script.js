@@ -166,10 +166,16 @@ class IncomeCalendar {
         // 检查是否有收入记录
         const income = this.incomeData[dateKey];
         if (income !== undefined) {
-            if (income > 0) {
-                dayElement.classList.add('has-income');
-            } else if (income < 0) {
-                dayElement.classList.add('has-negative-income');
+            if (income < 0) {
+                dayElement.classList.add('income-negative');
+            } else if (income >= 1000) {
+                dayElement.classList.add('income-level-4');
+            } else if (income >= 500) {
+                dayElement.classList.add('income-level-3');
+            } else if (income >= 100) {
+                dayElement.classList.add('income-level-2');
+            } else if (income > 0) {
+                dayElement.classList.add('income-level-1');
             }
             dayElement.innerHTML = `
                 <span>${day}</span>
