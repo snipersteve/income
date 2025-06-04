@@ -108,8 +108,8 @@ class IncomeCalendar {
         this.calendarDaysElement.innerHTML = '';
         
         // 添加上个月的尾部日期
-        const prevMonth = new Date(year, month - 1, 0);
-        const prevMonthDays = prevMonth.getDate();
+        const prevMonthLastDay = new Date(year, month, 0);
+        const prevMonthDays = prevMonthLastDay.getDate();
         
         for (let i = adjustedFirstDay - 1; i >= 0; i--) {
             const dayElement = this.createDayElement(
@@ -127,13 +127,11 @@ class IncomeCalendar {
             this.calendarDaysElement.appendChild(dayElement);
         }
         
-        // 计算还需要多少个下个月的日期来补齐行
-        const totalDays = adjustedFirstDay + daysInMonth;
-        const rowsNeeded = Math.ceil(totalDays / 7);
-        const totalCells = rowsNeeded * 7;
-        const nextMonthDays = totalCells - totalDays;
+        // 添加下个月的开头日期，补齐42个格子（6行x7列）
+        const totalCells = 42;
+        const cellsUsed = adjustedFirstDay + daysInMonth;
+        const nextMonthDays = totalCells - cellsUsed;
         
-        // 添加下个月的开头日期
         for (let day = 1; day <= nextMonthDays; day++) {
             const dayElement = this.createDayElement(
                 day,
@@ -162,8 +160,9 @@ class IncomeCalendar {
             dayElement.classList.add('today');
         }
         
-        // 创建日期键
-        const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        // 使用Date对象来正确处理月份
+        const date = new Date(year, month, day);
+        const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
         
         // 检查是否有收入记录
         const income = this.incomeData[dateKey];
