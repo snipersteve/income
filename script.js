@@ -127,11 +127,13 @@ class IncomeCalendar {
             this.calendarDaysElement.appendChild(dayElement);
         }
         
-        // 添加下个月的开头日期，补齐42个格子（6行x7列）
-        const totalCells = 42;
-        const cellsUsed = adjustedFirstDay + daysInMonth;
-        const nextMonthDays = totalCells - cellsUsed;
+        // 计算还需要多少个下个月的日期来补齐行
+        const totalDays = adjustedFirstDay + daysInMonth;
+        const rowsNeeded = Math.ceil(totalDays / 7);
+        const totalCells = rowsNeeded * 7;
+        const nextMonthDays = totalCells - totalDays;
         
+        // 添加下个月的开头日期
         for (let day = 1; day <= nextMonthDays; day++) {
             const dayElement = this.createDayElement(
                 day,
