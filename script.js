@@ -199,12 +199,12 @@ class IncomeCalendar {
     openModal(dateKey, currentIncome) {
         const [year, month, day] = dateKey.split('-');
         this.modalTitle.textContent = `${year}年${month}月${day}日 - 录入收入`;
-        this.incomeInput.value = currentIncome > 0 ? currentIncome : '';
+        this.incomeInput.value = currentIncome || '';
         this.modal.style.display = 'block';
         this.incomeInput.focus();
         
         // 显示或隐藏删除按钮
-        this.deleteBtn.style.display = currentIncome > 0 ? 'block' : 'none';
+        this.deleteBtn.style.display = currentIncome !== undefined ? 'block' : 'none';
     }
     
     closeModal() {
