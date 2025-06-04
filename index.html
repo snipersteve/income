@@ -38,29 +38,31 @@
         <!-- 右侧统计区域 -->
         <div class="stats-section">
             
-            <!-- 上方并排显示本月和本年收入 -->
+            <!-- 本月收入单独一行 -->
             <div class="stats-row">
-                <div class="stat-item">
+                <div class="stat-item full-width">
                     <div class="stat-label">本月收入</div>
                     <div class="stat-value" id="monthlyIncome">$0.00</div>
                 </div>
-                
+            </div>
+            
+            <!-- 本年收入和总收入一行 -->
+            <div class="stats-row">
                 <div class="stat-item">
                     <div class="stat-label">本年收入</div>
                     <div class="stat-value" id="yearlyIncome">$0.00</div>
                 </div>
-            </div>
-            
-            <!-- 下方显示总收入和数据管理按钮 -->
-            <div class="total-income-row">
-                <div class="total-income-content">
+                
+                <div class="stat-item">
                     <div class="stat-label">总收入</div>
                     <div class="stat-value" id="totalIncome">$0.00</div>
                 </div>
-                <div class="data-actions">
-                    <button id="exportData" class="action-btn">导出</button>
-                    <button id="importData" class="action-btn">导入</button>
-                </div>
+            </div>
+            
+            <!-- 数据管理按钮 -->
+            <div class="data-actions-row">
+                <button id="exportData" class="action-btn">导出</button>
+                <button id="importData" class="action-btn">导入</button>
             </div>
             
             <input type="file" id="fileInput" accept=".json" style="display: none;">
