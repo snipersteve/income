@@ -266,9 +266,15 @@ class IncomeCalendar {
             }
         }
         
-        this.monthlyIncomeElement.textContent = `$${Math.round(monthlyTotal)}`;
-        this.yearlyIncomeElement.textContent = `$${Math.round(yearlyTotal)}`;
-        this.totalIncomeElement.textContent = `$${Math.round(grandTotal)}`;
+        // 更新金额并设置颜色
+        const updateValueAndColor = (element, value) => {
+            element.textContent = `$${Math.round(value)}`;
+            element.style.color = value < 0 ? '#ef5350' : '#059669';
+        };
+        
+        updateValueAndColor(this.monthlyIncomeElement, monthlyTotal);
+        updateValueAndColor(this.yearlyIncomeElement, yearlyTotal);
+        updateValueAndColor(this.totalIncomeElement, grandTotal);
     }
     
     async loadData() {

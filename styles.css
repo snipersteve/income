@@ -13,106 +13,86 @@ body {
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
     display: flex;
     gap: 30px;
-    min-height: auto; /* 改为auto，不强制最小高度 */
-    width: 100%; /* 确保容器不超出屏幕 */
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: auto;
+    justify-content: center;
 }
 
 /* 日历区域 */
 .calendar-section {
-    flex: 2;
+    flex: 0 0 500px;
     background: white;
     border-radius: 12px;
-    padding: 30px;
+    padding: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    min-width: 0; /* 允许弹性收缩 */
-    height: fit-content; /* 自适应内容高度 */
+    height: fit-content;
 }
 
 .calendar-header {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-    gap: 20px;
-    flex-wrap: wrap; /* 允许换行 */
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .nav-btn {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
+    width: 32px;
+    height: 32px;
+    border: none;
     border-radius: 8px;
-    width: 40px;
-    height: 40px;
+    background: #f8f9fa;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    font-size: 18px;
-    color: #666;
-    transition: all 0.2s;
-    flex-shrink: 0; /* 防止按钮被压缩 */
-}
-
-.nav-btn:hover {
-    background: #e9ecef;
-    color: #333;
 }
 
 .today-btn {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
+    border: none;
     border-radius: 8px;
-    padding: 8px 16px;
-    cursor: pointer;
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 6px 12px;
     font-size: 14px;
-    color: #666;
+    cursor: pointer;
     transition: all 0.2s;
-    flex-shrink: 0; /* 防止按钮被压缩 */
-}
-
-.today-btn:hover {
-    background: #e9ecef;
-    color: #333;
 }
 
 .month-year {
-    font-size: 24px;
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
     font-weight: 600;
     color: #333;
     min-width: 150px;
-    text-align: center;
-    flex-shrink: 0; /* 防止月份标题被压缩 */
-}
-
-.calendar {
-    width: 100%;
-    overflow: hidden; /* 防止内容溢出 */
 }
 
 .weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 4px;
+    margin-bottom: 8px;
 }
 
 .weekday {
     text-align: center;
     font-weight: 500;
     color: #666;
-    padding: 12px 0;
-    font-size: 14px;
+    padding: 6px 0;
+    font-size: 12px;
 }
 
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
+    gap: 4px;
 }
 
 .day {
@@ -121,15 +101,15 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
     position: relative;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 13px;
     background: white;
     border: 1px solid #f0f0f0;
-    min-width: 0; /* 允许收缩 */
+    min-width: 0;
 }
 
 .day:hover {
@@ -199,20 +179,19 @@ body {
 }
 
 .income-amount {
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 600;
-    margin-top: 2px;
+    margin-top: 1px;
 }
 
 /* 统计区域 */
 .stats-section {
-    flex: 1;
+    flex: 0 0 500px;
     background: white;
     border-radius: 12px;
     padding: 30px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     height: fit-content;
-    min-width: 0; /* 允许弹性收缩 */
 }
 
 .stats-title {
@@ -475,19 +454,14 @@ body {
     
     .container {
         flex-direction: column;
-        padding: 10px; /* 减少边距 */
-        gap: 10px; /* 减少垂直间距 */
-        width: 100%;
-        min-width: 320px; /* 设置最小宽度 */
-        min-height: auto; /* 自适应高度 */
+        padding: 10px;
+        gap: 15px;
     }
     
     .calendar-section,
     .stats-section {
-        padding: 15px; /* 减少内边距 */
+        flex: none;
         width: 100%;
-        margin: 0;
-        height: fit-content; /* 自适应内容高度 */
     }
     
     .calendar-header {
@@ -793,4 +767,17 @@ body {
     font-weight: 700;
     color: #059669;
     word-break: break-all;
+}
+
+/* 负数金额显示为红色 */
+.stat-value:not(.full-width .stat-value)[id$="Income"]:contains("-") {
+    color: #ef5350;
+}
+
+.stat-item.full-width .stat-value:contains("-") {
+    color: #ef5350;
+}
+
+.calendar {
+    max-height: 600px;
 } 
